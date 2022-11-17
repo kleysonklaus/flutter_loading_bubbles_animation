@@ -7,7 +7,13 @@ const _duration = Duration(milliseconds: 500);
 enum DataBackupState { initial, start, end }
 
 class DataBackupInitialPage extends StatefulWidget {
-  const DataBackupInitialPage({Key? key}) : super(key: key);
+  final void Function() onAnimationStarted;
+  final Animation<double> progressAnimation;
+  const DataBackupInitialPage({
+    Key? key,
+    required this.onAnimationStarted,
+    required this.progressAnimation,
+  }) : super(key: key);
 
   @override
   State<DataBackupInitialPage> createState() => _DataBackupInitialPageState();
@@ -62,7 +68,7 @@ class _DataBackupInitialPageState extends State<DataBackupInitialPage> {
                       child: FittedBox(
                           child: Padding(
                         padding: const EdgeInsets.only(bottom: 20.0),
-                        child: Text("6 %"),
+                        child: ProgressCounter(widget.progressAnimation),
                       )),
                     ),
                   ],
@@ -122,6 +128,7 @@ class _DataBackupInitialPageState extends State<DataBackupInitialPage> {
                           setState(() {
                             _currentState = DataBackupState.start;
                           });
+                          widget.onAnimationStarted();
                         },
                         child: const Padding(
                           padding: EdgeInsets.all(25.0),
@@ -158,6 +165,20 @@ class _DataBackupInitialPageState extends State<DataBackupInitialPage> {
           const SizedBox(height: 25),
         ],
       ),
+    );
+  }
+}
+
+class ProgressCounter extends AnimatedWidget {
+  const ProgressCounter(Animation<double> animation, {Key? key})
+      : super(key: key, listenable: animation);
+
+  double get value => (listenable as Animation).value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      '${(value * 100).truncate().toString()} %',
     );
   }
 }
