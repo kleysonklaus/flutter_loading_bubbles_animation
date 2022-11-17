@@ -33,41 +33,47 @@ class _DataBackupInitialPageState extends State<DataBackupInitialPage> {
               ),
             ),
           ),
-          Expanded(
-            flex: 2,
-            child: TweenAnimationBuilder(
-              tween: Tween(
-                  begin: 1.0,
-                  end: _currentState != DataBackupState.initial ? 0.0 : 1.0),
-              duration: _duration,
-              builder: (_, value, child) {
-                final val = value as double;
-                return Opacity(
-                  opacity: val,
-                  child: Transform.translate(
-                    offset: Offset(0.0, -50 * val),
-                    child: child,
-                  ),
-                );
-              },
-              child: Column(
-                children: const [
-                  Text(
-                    "last backup:",
-                    style: TextStyle(),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    "28 may 2020",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20,
+          if (_currentState != DataBackupState.end)
+            Expanded(
+              flex: 2,
+              child: TweenAnimationBuilder(
+                tween: Tween(
+                    begin: 1.0,
+                    end: _currentState != DataBackupState.initial ? 0.0 : 1.0),
+                duration: _duration,
+                onEnd: () {
+                  setState(() {
+                    _currentState = DataBackupState.end;
+                  });
+                },
+                builder: (_, value, child) {
+                  final val = value as double;
+                  return Opacity(
+                    opacity: val,
+                    child: Transform.translate(
+                      offset: Offset(0.0, 50 * val),
+                      child: child,
                     ),
-                  ),
-                ],
+                  );
+                },
+                child: Column(
+                  children: const [
+                    Text(
+                      "last backup:",
+                      style: TextStyle(),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      "28 may 2020",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: AnimatedSwitcher(
