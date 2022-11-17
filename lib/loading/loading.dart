@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'data_backup_cloud_page.dart';
 import 'data_backup_initial_page.dart';
 
 const mainDataBackupColor = Color(0xFF5113AA);
@@ -16,6 +17,7 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _progressAnimation;
+  late Animation<double> _cloudOutAnimation;
 
   @override
   void initState() {
@@ -23,6 +25,8 @@ class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
         AnimationController(vsync: this, duration: Duration(seconds: 7));
     _progressAnimation = CurvedAnimation(
         parent: _animationController, curve: Interval(0.0, 0.65));
+    _cloudOutAnimation = CurvedAnimation(
+        parent: _animationController, curve: Interval(0.7, 0.85));
     super.initState();
   }
 
@@ -44,6 +48,10 @@ class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
               onAnimationStarted: () {
                 _animationController.forward();
               },
+            ),
+            DataBackupCloudPage(
+              progressAnimation: _progressAnimation,
+              cloudOutAnimation: _cloudOutAnimation,
             ),
           ],
         ),
