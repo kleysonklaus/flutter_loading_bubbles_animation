@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'loading.dart';
 
+const _duration = Duration(milliseconds: 500);
+
 enum DataBackupState { initial, start, end }
 
 class DataBackupInitialPage extends StatefulWidget {
@@ -21,7 +23,7 @@ class _DataBackupInitialPageState extends State<DataBackupInitialPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(
+          const Expanded(
             flex: 3,
             child: Text(
               "Cloud Storage",
@@ -33,36 +35,85 @@ class _DataBackupInitialPageState extends State<DataBackupInitialPage> {
           ),
           Expanded(
             flex: 2,
-            child: Column(
-              children: [
-                Text(
-                  "last backup:",
-                  style: TextStyle(),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  "28 may 2020",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20,
+            child: TweenAnimationBuilder(
+              tween: Tween(
+                  begin: 1.0,
+                  end: _currentState != DataBackupState.initial ? 0.0 : 1.0),
+              duration: _duration,
+              builder: (_, value, child) {
+                final val = value as double;
+                return Opacity(
+                  opacity: val,
+                  child: Transform.translate(
+                    offset: Offset(0.0, -50 * val),
+                    child: child,
                   ),
-                ),
-              ],
+                );
+              },
+              child: Column(
+                children: const [
+                  Text(
+                    "last backup:",
+                    style: TextStyle(),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "28 may 2020",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-          ElevatedButton(
-            onPressed: () {},
-            child: Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Text("create backup"),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: AnimatedSwitcher(
+              duration: _duration,
+              child: _currentState == DataBackupState.initial
+                  ? SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            _currentState = DataBackupState.start;
+                          });
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.all(25.0),
+                          child: Text("create backup"),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: mainDataBackupColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            )),
+                      ),
+                    )
+                  : SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton(
+                        onPressed: () {
+                          setState(() {
+                            _currentState = DataBackupState.initial;
+                          });
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.all(25.0),
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(
+                              color: mainDataBackupColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
             ),
-            style: ElevatedButton.styleFrom(
-                backgroundColor: mainDataBackupColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                )),
           ),
-          SizedBox(height: 25),
+          const SizedBox(height: 25),
         ],
       ),
     );
