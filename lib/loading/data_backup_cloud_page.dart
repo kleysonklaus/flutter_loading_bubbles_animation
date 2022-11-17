@@ -43,7 +43,7 @@ class DataBackupCloudPage extends StatelessWidget {
                 left: middleMargin,
                 bottom: 0,
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                   ),
                 ),
@@ -54,7 +54,7 @@ class DataBackupCloudPage extends StatelessWidget {
                 right: rightMargin,
                 bottom: 0,
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.white,
                   ),
@@ -66,7 +66,7 @@ class DataBackupCloudPage extends StatelessWidget {
                 left: leftMargin,
                 bottom: 0,
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.white,
                   ),
@@ -78,7 +78,7 @@ class DataBackupCloudPage extends StatelessWidget {
                 bottom: 0,
                 left: centerMargin / 2,
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.white,
                   ),
