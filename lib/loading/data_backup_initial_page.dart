@@ -33,6 +33,42 @@ class _DataBackupInitialPageState extends State<DataBackupInitialPage> {
               ),
             ),
           ),
+          if (_currentState == DataBackupState.end)
+            Expanded(
+              flex: 2,
+              child: TweenAnimationBuilder(
+                tween: Tween(begin: 1.0, end: 1.0),
+                duration: _duration,
+                builder: (_, value, child) {
+                  return Opacity(
+                    opacity: value as double,
+                    child: child,
+                  );
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      "Uploading files",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Expanded(
+                      child: FittedBox(
+                          child: Padding(
+                        padding: const EdgeInsets.only(bottom: 20.0),
+                        child: Text("6 %"),
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           if (_currentState != DataBackupState.end)
             Expanded(
               flex: 2,
