@@ -33,11 +33,11 @@ class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
     );
     _cloudOutAnimation = CurvedAnimation(
       parent: _animationController,
-      curve: Interval(0.7, 0.85),
+      curve: Interval(0.7, 0.85, curve: Curves.easeOut),
     );
     _endingAnimation = CurvedAnimation(
       parent: _animationController,
-      curve: Interval(0.8, 1.0),
+      curve: Interval(0.8, 1.0, curve: Curves.decelerate),
     );
     super.initState();
   }

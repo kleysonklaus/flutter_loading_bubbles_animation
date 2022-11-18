@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vector_math/vector_math_64.dart' as vector;
 
 import 'loading.dart';
 
@@ -7,11 +8,11 @@ class DataBackupCompletedPage extends AnimatedWidget {
   const DataBackupCompletedPage({Key? key, required this.endingAnimation})
       : super(key: key, listenable: endingAnimation);
 
-  double get value => (listenable as Animation).value;
+  Animation<double> get animation => (listenable as Animation<double>);
 
   @override
   Widget build(BuildContext context) {
-    return value > 0
+    return animation.value > 0
         ? Positioned.fill(
             child: SafeArea(
                 child: Column(
@@ -21,8 +22,13 @@ class DataBackupCompletedPage extends AnimatedWidget {
                     flex: 2,
                     child: Align(
                       alignment: Alignment.bottomCenter,
-                      child: Container(
-                        child: Text("Hello"),
+                      child: CustomPaint(
+                        foregroundPainter:
+                            _DataBackupCompletedPainer(animation),
+                        child: Container(
+                          height: 100,
+                          width: 100,
+                        ),
                       ),
                     )),
                 SizedBox(height: 60),
@@ -77,4 +83,52 @@ class DataBackupCompletedPage extends AnimatedWidget {
           )
         : const SizedBox.shrink();
   }
+}
+
+class _DataBackupCompletedPainer extends CustomPainter {
+  final Animation<double> animation;
+  _DataBackupCompletedPainer(this.animation) : super(repaint: animation);
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = mainDataBackupColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.0;
+
+    final circlePath = Path();
+
+    circlePath.addArc(
+      Rect.fromCenter(
+        center: Offset(size.width / 2, size.height / 2),
+        height: size.height,
+        width: size.width,
+      ),
+      vector.radians(-90.0),
+      vector.radians(360.0 * animation.value),
+    );
+
+    final leftLine = size.width * 0.2;
+    final rightLine = size.width * 0.3;
+
+    final leftPercent = animation.value > 0.5 ? 1.0 : animation.value / 0.5;
+    final rightPercent =
+        animation.value < 0.5 ? 0.0 : (animation.value - 0.5) / 0.5;
+
+    canvas.save();
+
+    canvas.translate(size.width / 3, size.height / 2);
+    canvas.rotate(vector.radians(-45));
+
+    canvas.drawLine(Offset.zero, Offset(0.0, leftLine * leftPercent), paint);
+
+    canvas.drawLine(Offset(0.0, leftLine),
+        Offset(rightLine * rightPercent, leftLine), paint);
+
+    canvas.restore();
+
+    canvas.drawPath(circlePath, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
