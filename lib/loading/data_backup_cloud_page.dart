@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import 'package:flutter_loading_bubbles_animation/loading/loading.dart';
+
 class _Bubble {
   final Color color;
   final double direction;
@@ -20,7 +22,24 @@ class _Bubble {
 class DataBackupCloudPage extends StatelessWidget {
   final Animation<double> progressAnimation;
   final Animation<double> cloudOutAnimation;
-  const DataBackupCloudPage({
+  final bubbles = List<_Bubble>.generate(500, (index) {
+    final size = math.Random().nextInt(20) + 5.0;
+    final speed = math.Random().nextInt(50) + 1.0;
+    final directionRandom = math.Random().nextBool();
+    final colorRandom = math.Random().nextBool();
+    final direction =
+        (math.Random().nextDouble() * 256) * (directionRandom ? 1.0 : -1);
+    final color = colorRandom ? mainDataBackupColor : secondaryDataBackupColor;
+    return _Bubble(
+      color: color,
+      direction: direction,
+      speed: speed,
+      size: size,
+      initialPosition: index * 10,
+    );
+  });
+
+  DataBackupCloudPage({
     Key? key,
     required this.progressAnimation,
     required this.cloudOutAnimation,
