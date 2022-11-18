@@ -1,6 +1,22 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+class _Bubble {
+  final Color color;
+  final double direction;
+  final double speed;
+  final double size;
+  final double initialPosition;
+
+  _Bubble({
+    required this.color,
+    required this.direction,
+    required this.speed,
+    required this.size,
+    required this.initialPosition,
+  });
+}
+
 class DataBackupCloudPage extends StatelessWidget {
   final Animation<double> progressAnimation;
   final Animation<double> cloudOutAnimation;
