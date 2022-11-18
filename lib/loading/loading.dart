@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'data_backup_cloud_page.dart';
+import 'data_backup_completed_page.dart';
 import 'data_backup_initial_page.dart';
 
 const mainDataBackupColor = Color(0xFF5113AA);
@@ -18,15 +19,26 @@ class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _progressAnimation;
   late Animation<double> _cloudOutAnimation;
+  late Animation<double> _endingAnimation;
 
   @override
   void initState() {
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 7));
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 7),
+    );
     _progressAnimation = CurvedAnimation(
-        parent: _animationController, curve: Interval(0.0, 0.65));
+      parent: _animationController,
+      curve: Interval(0.0, 0.65),
+    );
     _cloudOutAnimation = CurvedAnimation(
-        parent: _animationController, curve: Interval(0.7, 0.85));
+      parent: _animationController,
+      curve: Interval(0.7, 0.85),
+    );
+    _endingAnimation = CurvedAnimation(
+      parent: _animationController,
+      curve: Interval(0.8, 1.0),
+    );
     super.initState();
   }
 
@@ -52,6 +64,9 @@ class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
             DataBackupCloudPage(
               progressAnimation: _progressAnimation,
               cloudOutAnimation: _cloudOutAnimation,
+            ),
+            DataBackupCompletedPage(
+              endingAnimation: _endingAnimation,
             ),
           ],
         ),
