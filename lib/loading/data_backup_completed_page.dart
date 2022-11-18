@@ -25,33 +25,51 @@ class DataBackupCompletedPage extends AnimatedWidget {
                         child: Text("Hello"),
                       ),
                     )),
+                SizedBox(height: 60),
                 Expanded(
-                  child: Column(
-                    children: [
-                      const Text(
-                        "Data has successfully\n uploaded",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 17,
+                  child: TweenAnimationBuilder(
+                    tween: Tween(begin: 0.0, end: 1.0),
+                    duration: Duration(milliseconds: 400),
+                    builder: (_, value, child) {
+                      final val = value as double;
+                      return Opacity(
+                        opacity: val,
+                        child: Transform.translate(
+                          offset: Offset(
+                            0.0,
+                            50 * (1 - val),
+                          ),
+                          child: child,
                         ),
-                      ),
-                      const Spacer(),
-                      OutlinedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.all(25.0),
-                          child: Text(
-                            "Ok",
-                            style: TextStyle(
-                              color: mainDataBackupColor,
+                      );
+                    },
+                    child: Column(
+                      children: [
+                        const Text(
+                          "Data has successfully\n uploaded",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 17,
+                          ),
+                        ),
+                        const Spacer(),
+                        OutlinedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.all(25.0),
+                            child: Text(
+                              "Ok",
+                              style: TextStyle(
+                                color: mainDataBackupColor,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 40),
-                    ],
+                        SizedBox(height: 40),
+                      ],
+                    ),
                   ),
                 ),
               ],
