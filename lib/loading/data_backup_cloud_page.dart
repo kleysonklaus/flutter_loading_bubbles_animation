@@ -112,10 +112,16 @@ class DataBackupCloudPage extends StatelessWidget {
                 width: circleSize,
                 bottom: 0,
                 left: centerMargin / 2,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
+                child: ClipOval(
+                  child: CustomPaint(
+                    foregroundPainter:
+                        _CloudBubblePainter(progressAnimation, bubbles),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -125,4 +131,25 @@ class DataBackupCloudPage extends StatelessWidget {
       },
     );
   }
+}
+
+class _CloudBubblePainter extends CustomPainter {
+  _CloudBubblePainter(this.animation, this.bubbles) : super(repaint: animation);
+  final Animation<double> animation;
+  final List<_Bubble> bubbles;
+  @override
+  void paint(Canvas canvas, Size size) {
+    for (_Bubble _bubble in bubbles) {
+      final offset = Offset(
+        size.width / 2 + _bubble.direction * animation.value,
+        size.height * 1.2 * (1 - animation.value) -
+            _bubble.speed * animation.value +
+            _bubble.initialPosition * (1 - animation.value),
+      );
+      canvas.drawCircle(offset, _bubble.size, Paint()..color = _bubble.color);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
