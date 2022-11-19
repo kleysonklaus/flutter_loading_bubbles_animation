@@ -20,6 +20,7 @@ class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
   late Animation<double> _progressAnimation;
   late Animation<double> _cloudOutAnimation;
   late Animation<double> _endingAnimation;
+  late Animation<double> _bubblesAnimation;
 
   @override
   void initState() {
@@ -34,6 +35,10 @@ class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
     _cloudOutAnimation = CurvedAnimation(
       parent: _animationController,
       curve: Interval(0.7, 0.85, curve: Curves.easeOut),
+    );
+    _bubblesAnimation = CurvedAnimation(
+      parent: _animationController,
+      curve: Interval(0.0, 1.0, curve: Curves.decelerate),
     );
     _endingAnimation = CurvedAnimation(
       parent: _animationController,
@@ -64,6 +69,7 @@ class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
             DataBackupCloudPage(
               progressAnimation: _progressAnimation,
               cloudOutAnimation: _cloudOutAnimation,
+              bubblesAnimation: _bubblesAnimation,
             ),
             DataBackupCompletedPage(
               endingAnimation: _endingAnimation,
