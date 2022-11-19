@@ -63,7 +63,6 @@ class DataBackupCloudPage extends StatelessWidget {
         final rightSize = size * 0.7 * (1 - progressAnimation.value);
         final leftMargin = queryData.width / 2 - leftSize * 1.2;
         final rightMargin = queryData.width / 2 - rightSize * 1.2;
-        final middleSize = queryData.width / 2;
         final middleMargin =
             queryData.width / 2 - (size / 2) * (1 - progressAnimation.value);
         final topOutPosition = queryData.height * cloudOutAnimation.value;

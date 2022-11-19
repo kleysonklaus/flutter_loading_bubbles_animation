@@ -25,17 +25,17 @@ class DataBackupCompletedPage extends AnimatedWidget {
                       child: CustomPaint(
                         foregroundPainter:
                             _DataBackupCompletedPainer(animation),
-                        child: Container(
+                        child: const SizedBox(
                           height: 100,
                           width: 100,
                         ),
                       ),
                     )),
-                SizedBox(height: 60),
+                const SizedBox(height: 60),
                 Expanded(
                   child: TweenAnimationBuilder(
                     tween: Tween(begin: 0.0, end: 1.0),
-                    duration: Duration(milliseconds: 400),
+                    duration: const Duration(milliseconds: 400),
                     builder: (_, value, child) {
                       final val = value as double;
                       return Opacity(
@@ -73,7 +73,7 @@ class DataBackupCompletedPage extends AnimatedWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: 40),
+                        const SizedBox(height: 40),
                       ],
                     ),
                   ),

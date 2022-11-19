@@ -26,23 +26,23 @@ class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
   void initState() {
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 7),
+      duration: const Duration(seconds: 7),
     );
     _progressAnimation = CurvedAnimation(
       parent: _animationController,
-      curve: Interval(0.0, 0.65),
+      curve: const Interval(0.0, 0.65),
     );
     _cloudOutAnimation = CurvedAnimation(
       parent: _animationController,
-      curve: Interval(0.7, 0.85, curve: Curves.easeOut),
+      curve: const Interval(0.7, 0.85, curve: Curves.easeOut),
     );
     _bubblesAnimation = CurvedAnimation(
       parent: _animationController,
-      curve: Interval(0.0, 1.0, curve: Curves.decelerate),
+      curve: const Interval(0.0, 1.0, curve: Curves.decelerate),
     );
     _endingAnimation = CurvedAnimation(
       parent: _animationController,
-      curve: Interval(0.8, 1.0, curve: Curves.decelerate),
+      curve: const Interval(0.8, 1.0, curve: Curves.decelerate),
     );
     super.initState();
   }

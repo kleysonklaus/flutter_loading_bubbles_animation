@@ -54,7 +54,7 @@ class _DataBackupInitialPageState extends State<DataBackupInitialPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text(
+                    const Text(
                       "Uploading files",
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -63,7 +63,7 @@ class _DataBackupInitialPageState extends State<DataBackupInitialPage> {
                         fontWeight: FontWeight.w300,
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Expanded(
                       child: FittedBox(
                           child: Padding(
